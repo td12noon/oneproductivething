@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productive Action Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 2rem;
+        }
+        #action {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            min-height: 3rem;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Productive Action Generator</h1>
+        <p id="action">Click the button to get a productive action!</p>
+        <button onclick="generateAction()">Give me an action</button>
+    </div>
+
+    <script>
+        const actions = [
+            "Walk for 1 mile",
+            "Read 10 pages of a book",
+            "Drink 1L of water",
+            "Do 20 push-ups",
+            "Meditate for 10 minutes",
+            "Write in your journal for 15 minutes",
+            "Clean your workspace for 10 minutes",
+            "Learn 5 new vocabulary words",
+            "Stretch for 5 minutes",
+            "Call a friend or family member",
+            "Organize your to-do list",
+            "Practice a musical instrument for 15 minutes",
+            "Declutter one drawer or shelf",
+            "Take a 15-minute power nap",
+            "Solve a sudoku or crossword puzzle"
+        ];
+
+        function generateAction() {
+            const actionElement = document.getElementById('action');
+            const randomIndex = Math.floor(Math.random() * actions.length);
+            actionElement.textContent = actions[randomIndex];
+        }
+    </script>
+</body>
+</html>
