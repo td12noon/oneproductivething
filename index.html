@@ -4,43 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productive Action Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        body, button {
+            font-family: 'Roboto', sans-serif;
+        }
         body {
-            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
         }
         .container {
             text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
         h1 {
             margin-bottom: 2rem;
+            font-weight: 300;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
         }
         #action {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             min-height: 3rem;
+            font-weight: 400;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
         button {
             background-color: #333;
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         button:hover {
             background-color: #555;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -48,7 +70,7 @@
     <div class="container">
         <h1>Productive Action Generator</h1>
         <p id="action">Click the button to get a productive action!</p>
-        <button onclick="generateAction()">Give me an action</button>
+        <button onclick="generateAction()" id="actionButton">Give me an action</button>
     </div>
 
     <script>
@@ -70,10 +92,36 @@
             "Solve a sudoku or crossword puzzle"
         ];
 
+        let remainingActions = [...actions];
+        let isFirstClick = true;
+
         function generateAction() {
             const actionElement = document.getElementById('action');
-            const randomIndex = Math.floor(Math.random() * actions.length);
-            actionElement.textContent = actions[randomIndex];
+            const buttonElement = document.getElementById('actionButton');
+
+            if (remainingActions.length === 0) {
+                actionElement.style.opacity = 0;
+                setTimeout(() => {
+                    actionElement.textContent = "That's all I have";
+                    actionElement.style.opacity = 1;
+                    buttonElement.style.display = 'none';
+                }, 300);
+                return;
+            }
+
+            if (isFirstClick) {
+                buttonElement.textContent = "Try again";
+                isFirstClick = false;
+            }
+
+            const randomIndex = Math.floor(Math.random() * remainingActions.length);
+            const selectedAction = remainingActions.splice(randomIndex, 1)[0];
+
+            actionElement.style.opacity = 0;
+            setTimeout(() => {
+                actionElement.textContent = selectedAction;
+                actionElement.style.opacity = 1;
+            }, 300);
         }
     </script>
 </body>
